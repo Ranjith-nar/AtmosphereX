@@ -1,0 +1,6 @@
+{
+  "name": "AtmosphereX",
+  "description": "AI-powered weather forecasting, atmospheric gas intelligence, ML air quality prediction, and ESP32 IoT environmental monitoring platform.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
