@@ -75,7 +75,11 @@ async function startServer() {
 
       let iotOverride = null;
       if (req.user?.uid) {
-        iotOverride = await getNearbyActiveIotReading(req.user.uid, lat, lon);
+        try {
+          iotOverride = await getNearbyActiveIotReading(req.user.uid, lat, lon);
+        } catch (dbErr) {
+          console.warn('Database not available for IoT override, continuing with telemetry:', dbErr);
+        }
       }
 
       const bundle = await fetchCompleteAtmosphericIntelligence(
