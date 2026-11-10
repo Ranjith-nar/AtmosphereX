@@ -7,6 +7,7 @@ AtmosphereX is a full-stack atmospheric intelligence dashboard powered by **Reac
 ## 🚀 Features
 
 - **Atmospheric Gas Intelligence**: Real-time breakdown of bulk atmospheric gases ($N_2$, $O_2$, $Ar$) and trace pollutants ($CO_2$, $CO$, $NO_2$, $SO_2$, $O_3$, $PM_{2.5}$, $PM_{10}$).
+- **Interactive 3D Orbital Globe**: Spherical orthographic Earth visualization featuring real-time country boundary rendering, global city markers, adaptive level-of-detail zoom, mobile touch gestures (1-finger orbit, 2-finger pinch zoom, tap-to-probe), and raycasting spatial coordinate selection.
 - **Global Meteorology & AQI**: Real-time weather assimilation, hourly forecasts, regional grid tracking, and EPA/WHO air quality categorization.
 - **Harmonic ML Forecasting**: On-the-fly L2 Ridge multivariate harmonic regressor predicting next-24-hour $PM_{2.5}$ trends with holdout validation.
 - **ESP32 IoT Node Fusion**: Ingestion endpoint (`/api/iot/telemetry`) to stream physical sensor readings with live provenance tracing.
