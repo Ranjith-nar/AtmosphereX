@@ -106,7 +106,7 @@ export const InteractiveEnvMap: React.FC<InteractiveEnvMapProps> = ({
           </h2>
           <p className="text-xs text-slate-400 mt-0.5">
             {viewMode === 'globe'
-              ? '3D Orbital Globe · Drag to orbit, wheel to zoom, or click anywhere to probe atmospheric telemetry'
+              ? '3D Orbital Globe · Interactive countries, cities, and atmospheric telemetry · Drag to orbit, pinch/wheel to zoom, click/tap to monitor'
               : '2D Sector Grid · Showing live 9-sector Open-Meteo regional telemetry grid'}
           </p>
         </div>
