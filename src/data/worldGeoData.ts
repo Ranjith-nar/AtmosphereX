@@ -175,6 +175,19 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
       ],
     ],
   },
+  {
+    id: 'VEN',
+    name: 'Venezuela',
+    continent: 'South America',
+    lat: 6.4,
+    lon: -66.5,
+    polygons: [
+      [
+        [12.0, -71.0], [10.5, -62.0], [8.5, -60.0], [5.0, -60.5], [1.0, -66.0],
+        [3.0, -67.5], [6.0, -67.5], [7.0, -72.0], [12.0, -71.0],
+      ],
+    ],
+  },
 
   // --- EUROPE ---
   {
@@ -243,6 +256,45 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
         [46.5, 11.5], [46.0, 13.5], [44.5, 12.3], [41.0, 16.0], [40.0, 18.0],
         [38.0, 16.0], [38.0, 15.0], [40.5, 14.0], [44.0, 10.0], [44.5, 8.0],
         [46.0, 6.8], [46.5, 11.5],
+      ],
+    ],
+  },
+  {
+    id: 'NLD',
+    name: 'Netherlands',
+    continent: 'Europe',
+    lat: 52.1,
+    lon: 5.2,
+    polygons: [
+      [
+        [53.5, 6.8], [52.8, 7.1], [51.2, 5.9], [51.4, 3.6], [53.0, 4.8],
+        [53.5, 6.8],
+      ],
+    ],
+  },
+  {
+    id: 'CHE',
+    name: 'Switzerland',
+    continent: 'Europe',
+    lat: 46.8,
+    lon: 8.2,
+    polygons: [
+      [
+        [47.7, 8.5], [47.5, 9.5], [46.5, 10.4], [45.9, 9.0], [46.2, 6.0],
+        [47.3, 7.0], [47.7, 8.5],
+      ],
+    ],
+  },
+  {
+    id: 'GRC',
+    name: 'Greece',
+    continent: 'Europe',
+    lat: 39.0,
+    lon: 22.0,
+    polygons: [
+      [
+        [41.5, 23.5], [41.0, 26.0], [38.5, 24.0], [36.5, 23.0], [38.0, 21.0],
+        [40.0, 20.0], [41.5, 23.5],
       ],
     ],
   },
@@ -423,6 +475,32 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
       ],
     ],
   },
+  {
+    id: 'THA',
+    name: 'Thailand',
+    continent: 'Asia',
+    lat: 15.8,
+    lon: 100.9,
+    polygons: [
+      [
+        [20.4, 100.0], [18.0, 104.5], [15.0, 105.5], [12.0, 102.5], [6.5, 101.5],
+        [7.0, 99.5], [13.0, 100.0], [16.5, 98.5], [20.4, 100.0],
+      ],
+    ],
+  },
+  {
+    id: 'VNM',
+    name: 'Vietnam',
+    continent: 'Asia',
+    lat: 14.0,
+    lon: 108.2,
+    polygons: [
+      [
+        [22.8, 105.5], [21.5, 108.0], [17.0, 107.0], [12.0, 109.2], [8.5, 105.0],
+        [10.5, 105.0], [16.0, 107.5], [21.5, 104.0], [22.8, 105.5],
+      ],
+    ],
+  },
 
   // --- AFRICA ---
   {
@@ -490,6 +568,19 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
       ],
     ],
   },
+  {
+    id: 'DZA',
+    name: 'Algeria',
+    continent: 'Africa',
+    lat: 28.0,
+    lon: 2.6,
+    polygons: [
+      [
+        [37.0, 8.0], [33.0, 9.0], [24.0, 9.5], [19.0, 5.0], [24.0, -4.5],
+        [30.0, -8.0], [35.0, -2.0], [37.0, 1.0], [37.0, 8.0],
+      ],
+    ],
+  },
 
   // --- OCEANIA ---
   {
@@ -513,7 +604,6 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     lat: -40.9,
     lon: 174.8,
     polygons: [
-      // North & South Island approximate bounding
       [
         [-34.5, 172.8], [-37.5, 178.5], [-41.5, 175.5], [-46.5, 169.0], [-45.5, 166.5],
         [-40.5, 172.5], [-38.0, 174.5], [-34.5, 172.8],
@@ -559,6 +649,7 @@ export const WORLD_CITIES: WorldCity[] = [
   { name: 'Santiago', country: 'Chile', lat: -33.4489, lon: -70.6693, tier: 1, isCapital: true },
   { name: 'Bogotá', country: 'Colombia', lat: 4.711, lon: -74.0721, tier: 1, isCapital: true },
   { name: 'Lima', country: 'Peru', lat: -12.0464, lon: -77.0428, tier: 1, isCapital: true },
+  { name: 'Caracas', country: 'Venezuela', lat: 10.4806, lon: -66.9036, tier: 2, isCapital: true },
 
   // --- Europe ---
   { name: 'London', country: 'United Kingdom', lat: 51.5074, lon: -0.1278, tier: 1, isCapital: true },
@@ -567,6 +658,8 @@ export const WORLD_CITIES: WorldCity[] = [
   { name: 'Madrid', country: 'Spain', lat: 40.4168, lon: -3.7038, tier: 1, isCapital: true },
   { name: 'Rome', country: 'Italy', lat: 41.9028, lon: 12.4964, tier: 1, isCapital: true },
   { name: 'Amsterdam', country: 'Netherlands', lat: 52.3676, lon: 4.9041, tier: 2, isCapital: true },
+  { name: 'Zurich', country: 'Switzerland', lat: 47.3769, lon: 8.5417, tier: 2 },
+  { name: 'Athens', country: 'Greece', lat: 37.9838, lon: 23.7275, tier: 2, isCapital: true },
   { name: 'Stockholm', country: 'Sweden', lat: 59.3293, lon: 18.0686, tier: 2, isCapital: true },
   { name: 'Oslo', country: 'Norway', lat: 59.9139, lon: 10.7522, tier: 2, isCapital: true },
   { name: 'Warsaw', country: 'Poland', lat: 52.2297, lon: 21.0122, tier: 2, isCapital: true },
@@ -584,6 +677,7 @@ export const WORLD_CITIES: WorldCity[] = [
   { name: 'Bengaluru', country: 'India', lat: 12.9716, lon: 77.5946, tier: 2 },
   { name: 'Singapore', country: 'Singapore', lat: 1.3521, lon: 103.8198, tier: 1, isCapital: true },
   { name: 'Bangkok', country: 'Thailand', lat: 13.7563, lon: 100.5018, tier: 1, isCapital: true },
+  { name: 'Hanoi', country: 'Vietnam', lat: 21.0285, lon: 105.8542, tier: 2, isCapital: true },
   { name: 'Jakarta', country: 'Indonesia', lat: -6.2088, lon: 106.8456, tier: 1, isCapital: true },
   { name: 'Manila', country: 'Philippines', lat: 14.5995, lon: 120.9842, tier: 2, isCapital: true },
   { name: 'Dubai', country: 'United Arab Emirates', lat: 25.2048, lon: 55.2708, tier: 1 },
@@ -597,6 +691,7 @@ export const WORLD_CITIES: WorldCity[] = [
   { name: 'Lagos', country: 'Nigeria', lat: 6.5244, lon: 3.3792, tier: 1 },
   { name: 'Nairobi', country: 'Kenya', lat: -1.2921, lon: 36.8219, tier: 1, isCapital: true },
   { name: 'Casablanca', country: 'Morocco', lat: 33.5731, lon: -7.5898, tier: 2 },
+  { name: 'Algiers', country: 'Algeria', lat: 36.7538, lon: 3.0588, tier: 2, isCapital: true },
 
   // --- Oceania ---
   { name: 'Sydney', country: 'Australia', lat: -33.8688, lon: 151.2093, tier: 1 },
@@ -606,3 +701,62 @@ export const WORLD_CITIES: WorldCity[] = [
   { name: 'Auckland', country: 'New Zealand', lat: -36.8485, lon: 174.7633, tier: 2 },
   { name: 'Wellington', country: 'New Zealand', lat: -41.2865, lon: 174.7762, tier: 3, isCapital: true },
 ];
+
+/**
+ * Point-in-polygon ray casting check in spherical degrees.
+ */
+export function isCoordInPolygon(
+  lat: number,
+  lon: number,
+  poly: Array<[number, number]>
+): boolean {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const yi = poly[i][0];
+    const xi = poly[i][1];
+    const yj = poly[j][0];
+    const xj = poly[j][1];
+
+    const intersect =
+      yi > lat !== yj > lat &&
+      lon < ((xj - xi) * (lat - yi)) / (yj - yi || 0.00001) + xi;
+    if (intersect) inside = !inside;
+  }
+  return inside;
+}
+
+/**
+ * Returns matching WorldCountry if coordinate falls inside any of its polygons,
+ * or nearest country within proximity.
+ */
+export function findCountryForCoord(
+  lat: number,
+  lon: number
+): WorldCountry | null {
+  // 1. Direct polygon boundary containment
+  for (const country of WORLD_COUNTRIES) {
+    for (const poly of country.polygons) {
+      if (isCoordInPolygon(lat, lon, poly)) {
+        return country;
+      }
+    }
+  }
+
+  // 2. Proximity check to country center
+  let closest: WorldCountry | null = null;
+  let minDistance = Infinity;
+
+  for (const country of WORLD_COUNTRIES) {
+    const dLat = country.lat - lat;
+    let dLon = country.lon - lon;
+    if (dLon > 180) dLon -= 360;
+    if (dLon < -180) dLon += 360;
+    const dist = Math.sqrt(dLat * dLat + dLon * dLon);
+    if (dist < minDistance) {
+      minDistance = dist;
+      closest = country;
+    }
+  }
+
+  return minDistance < 18 ? closest : null;
+}
