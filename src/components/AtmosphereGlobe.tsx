@@ -5,6 +5,7 @@ import {
   IotDeviceRecord,
 } from '../types/atmosphere';
 import {
+  WORLD_CONTINENTS,
   WORLD_COUNTRIES,
   WORLD_CITIES,
   WorldCity,
@@ -351,7 +352,32 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
       }
       ctx.stroke();
 
-      // 4. World Countries (Standardized Boundary Rendering & Centroid Hierarchy)
+            // 4a. World Continental Landmass Base (Full real-world Earth map coverage)
+      WORLD_CONTINENTS.forEach((continent) => {
+        ctx.beginPath();
+        let contStarted = false;
+        for (const [lat, lon] of continent.polygon) {
+          const pt = project(lat, lon, cx, cy, radius, centerLat, centerLon);
+          if (pt.visible) {
+            if (!contStarted) {
+              ctx.moveTo(pt.x, pt.y);
+              contStarted = true;
+            } else {
+              ctx.lineTo(pt.x, pt.y);
+            }
+          }
+        }
+        if (contStarted) {
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(15, 118, 110, 0.28)';
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(45, 212, 191, 0.40)';
+          ctx.lineWidth = 1.0;
+          ctx.stroke();
+        }
+      });
+
+      // 4b. World Countries (Standardized Boundary Rendering & Centroid Hierarchy)
       WORLD_COUNTRIES.forEach((country) => {
         const isHovered = hoveredCountry?.id === country.id;
 
@@ -704,6 +730,7 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
 
   // Pointer interaction: drag to rotate
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+    setAutoRotate(false);
     isDraggingRef.current = true;
     lastPointerPosRef.current = { x: e.clientX, y: e.clientY };
   };
@@ -849,6 +876,7 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
 
   // --- MOBILE TOUCH GESTURE HANDLERS ---
   const handleTouchStart = (e: React.TouchEvent<HTMLCanvasElement>) => {
+    setAutoRotate(false);
     if (e.touches.length === 1) {
       isDraggingRef.current = true;
       const t = e.touches[0];
@@ -927,6 +955,7 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
   // Wheel zoom
   const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
     e.preventDefault();
+    setAutoRotate(false);
     const delta = -e.deltaY * 0.0015;
     setZoom((prev) => Math.max(0.65, Math.min(2.5, prev + delta)));
   };
