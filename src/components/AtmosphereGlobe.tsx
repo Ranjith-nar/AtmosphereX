@@ -447,7 +447,7 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
           centerLon
         );
 
-        if (countryPt.visible && countryPt.cosC > 0.28) {
+        if (countryPt.visible && countryPt.cosC > 0.15) {
           const showCountryLabel = zoom >= 0.85 || country.continent !== 'Antarctica';
           if (showCountryLabel) {
             ctx.save();
@@ -520,16 +520,17 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
         screenY: number;
       }> = [];
 
+      // While zooming, all places across the globe are visible
       const candidateCities = WORLD_CITIES.filter((city) => {
-        if (city.tier === 1) return true;
-        if (city.tier === 2) return zoom >= 0.95;
-        return zoom >= 1.35;
+        if (zoom >= 0.95) return true; // All places fully visible when zoomed in
+        if (city.tier === 1 || city.isCapital) return true;
+        return zoom >= 0.8;
       });
 
       // Render city markers
       candidateCities.forEach((city) => {
         const pt = project(city.lat, city.lon, cx, cy, radius, centerLat, centerLon);
-        if (!pt.visible || pt.cosC <= 0.08) return;
+        if (!pt.visible || pt.cosC <= 0.02) return;
 
         const isHovered = hoveredCity?.name === city.name;
         renderedCityPositions.push({ city, screenX: pt.x, screenY: pt.y });
@@ -566,9 +567,10 @@ export const AtmosphereGlobe: React.FC<AtmosphereGlobeProps> = ({
         // City Label (with high-contrast pill backdrop)
         const shouldShowLabel =
           isHovered ||
+          zoom >= 1.05 || // All places display their labels when zooming
           city.tier === 1 ||
-          (city.tier === 2 && zoom >= 1.25) ||
-          zoom >= 1.6;
+          city.isCapital ||
+          zoom >= 0.9;
 
         if (shouldShowLabel) {
           ctx.save();
