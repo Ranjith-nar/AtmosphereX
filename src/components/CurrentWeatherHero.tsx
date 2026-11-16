@@ -11,6 +11,7 @@ import {
   CartesianGrid,
 } from 'recharts';
 import { AtmosphericBundleResponse } from '../types/atmosphere';
+import { formatLocationTitle } from '../data/worldGeoData';
 import orbitalHorizonImg from '../assets/images/orbital_atmosphere_horizon_1793634554679.jpg';
 
 interface CurrentWeatherHeroProps {
@@ -125,10 +126,23 @@ export const CurrentWeatherHero: React.FC<CurrentWeatherHeroProps> = ({
                 )}
               </div>
 
-              <h1 className="text-2xl sm:text-4xl font-display font-bold tracking-tight text-slate-100 text-balance">
-                {location.name}
-                {location.country ? `, ${location.country}` : ''}
-              </h1>
+              {(() => {
+                const formattedLoc = formatLocationTitle(
+                  location.name,
+                  location.country,
+                  location.admin1
+                );
+                return (
+                  <h1 className="text-2xl sm:text-4xl font-display font-bold tracking-tight text-slate-100 text-balance">
+                    <span>{formattedLoc.primaryTitle}</span>
+                    {formattedLoc.secondaryHierarchy && (
+                      <span className="text-slate-400 font-normal text-base sm:text-xl ml-2 font-sans">
+                        · {formattedLoc.secondaryHierarchy}
+                      </span>
+                    )}
+                  </h1>
+                );
+              })()}
 
               <div className="flex flex-wrap items-baseline gap-4 pt-1">
                 <div className="flex items-baseline">

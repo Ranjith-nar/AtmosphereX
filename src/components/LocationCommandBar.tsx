@@ -200,7 +200,7 @@ export const LocationCommandBar: React.FC<LocationCommandBarProps> = ({
                           >
                             <span className="truncate font-medium">
                               {city.name}
-                              {city.country ? `, ${city.country}` : ''}
+                              {city.country && city.country !== city.name ? `, ${city.country}` : ''}
                             </span>
                             <span className="font-mono text-[11px] text-slate-500 tabular-nums ml-2 shrink-0">
                               {city.latitude.toFixed(1)}°, {city.longitude.toFixed(1)}°

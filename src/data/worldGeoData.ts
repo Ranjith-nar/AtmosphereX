@@ -1,20 +1,27 @@
 /**
  * Comprehensive World Geographic Data for Interactive 3D Atmosphere Globe
- * Contains verified boundary polygons for world countries and major global cities.
+ * All countries follow a standardized, consistent data structure with full hierarchy:
+ * Continent -> Region -> Country (ISO Alpha-3, ISO Alpha-2, Name, Official Name, Capital, Centroid, Polygons)
  */
 
 export interface WorldCountry {
-  id: string;
-  name: string;
-  continent: string;
-  lat: number;
-  lon: number;
-  polygons: Array<Array<[number, number]>>; // [lat, lon] coordinates in degrees
+  id: string; // ISO 3166-1 alpha-3 code (e.g. 'USA')
+  code: string; // ISO 3166-1 alpha-2 code (e.g. 'US')
+  name: string; // Common English country name
+  officialName: string; // Formal official country name
+  continent: string; // Global continent
+  region: string; // Sub-regional classification
+  capital: string; // Official capital city
+  lat: number; // Geographical center latitude
+  lon: number; // Geographical center longitude
+  polygons: Array<Array<[number, number]>>; // Multi-polygon boundary coordinates [lat, lon]
 }
 
 export interface WorldCity {
   name: string;
   country: string;
+  countryCode: string;
+  continent: string;
   lat: number;
   lon: number;
   tier: 1 | 2 | 3; // 1 = global megacities (always visible), 2 = regional hubs, 3 = high-zoom cities
@@ -22,11 +29,17 @@ export interface WorldCity {
 }
 
 export const WORLD_COUNTRIES: WorldCountry[] = [
+  // ==========================================
   // --- NORTH AMERICA ---
+  // ==========================================
   {
     id: 'USA',
+    code: 'US',
     name: 'United States',
+    officialName: 'United States of America',
     continent: 'North America',
+    region: 'Northern America',
+    capital: 'Washington D.C.',
     lat: 38.0,
     lon: -97.0,
     polygons: [
@@ -49,8 +62,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'CAN',
+    code: 'CA',
     name: 'Canada',
+    officialName: 'Canada',
     continent: 'North America',
+    region: 'Northern America',
+    capital: 'Ottawa',
     lat: 56.0,
     lon: -106.0,
     polygons: [
@@ -65,8 +82,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'MEX',
+    code: 'MX',
     name: 'Mexico',
+    officialName: 'United Mexican States',
     continent: 'North America',
+    region: 'Central America',
+    capital: 'Mexico City',
     lat: 23.6,
     lon: -102.5,
     polygons: [
@@ -80,8 +101,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'CUB',
+    code: 'CU',
     name: 'Cuba',
+    officialName: 'Republic of Cuba',
     continent: 'North America',
+    region: 'Caribbean',
+    capital: 'Havana',
     lat: 21.5,
     lon: -79.0,
     polygons: [
@@ -93,8 +118,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'GRL',
+    code: 'GL',
     name: 'Greenland',
+    officialName: 'Greenland',
     continent: 'North America',
+    region: 'Northern America',
+    capital: 'Nuuk',
     lat: 72.0,
     lon: -40.0,
     polygons: [
@@ -105,11 +134,17 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     ],
   },
 
+  // ==========================================
   // --- SOUTH AMERICA ---
+  // ==========================================
   {
     id: 'BRA',
+    code: 'BR',
     name: 'Brazil',
+    officialName: 'Federative Republic of Brazil',
     continent: 'South America',
+    region: 'South America',
+    capital: 'Brasília',
     lat: -14.2,
     lon: -51.9,
     polygons: [
@@ -123,8 +158,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'ARG',
+    code: 'AR',
     name: 'Argentina',
+    officialName: 'Argentine Republic',
     continent: 'South America',
+    region: 'South America',
+    capital: 'Buenos Aires',
     lat: -38.4,
     lon: -63.6,
     polygons: [
@@ -137,8 +176,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'CHL',
+    code: 'CL',
     name: 'Chile',
+    officialName: 'Republic of Chile',
     continent: 'South America',
+    region: 'South America',
+    capital: 'Santiago',
     lat: -35.6,
     lon: -71.5,
     polygons: [
@@ -151,8 +194,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'COL',
+    code: 'CO',
     name: 'Colombia',
+    officialName: 'Republic of Colombia',
     continent: 'South America',
+    region: 'South America',
+    capital: 'Bogotá',
     lat: 4.5,
     lon: -73.2,
     polygons: [
@@ -164,8 +211,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'PER',
+    code: 'PE',
     name: 'Peru',
+    officialName: 'Republic of Peru',
     continent: 'South America',
+    region: 'South America',
+    capital: 'Lima',
     lat: -9.1,
     lon: -75.0,
     polygons: [
@@ -177,8 +228,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'VEN',
+    code: 'VE',
     name: 'Venezuela',
+    officialName: 'Bolivarian Republic of Venezuela',
     continent: 'South America',
+    region: 'South America',
+    capital: 'Caracas',
     lat: 6.4,
     lon: -66.5,
     polygons: [
@@ -189,11 +244,17 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     ],
   },
 
+  // ==========================================
   // --- EUROPE ---
+  // ==========================================
   {
     id: 'GBR',
+    code: 'GB',
     name: 'United Kingdom',
+    officialName: 'United Kingdom of Great Britain and Northern Ireland',
     continent: 'Europe',
+    region: 'Northern Europe',
+    capital: 'London',
     lat: 55.3,
     lon: -3.4,
     polygons: [
@@ -206,8 +267,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'FRA',
+    code: 'FR',
     name: 'France',
+    officialName: 'French Republic',
     continent: 'Europe',
+    region: 'Western Europe',
+    capital: 'Paris',
     lat: 46.6,
     lon: 2.2,
     polygons: [
@@ -220,8 +285,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'DEU',
+    code: 'DE',
     name: 'Germany',
+    officialName: 'Federal Republic of Germany',
     continent: 'Europe',
+    region: 'Western Europe',
+    capital: 'Berlin',
     lat: 51.1,
     lon: 10.4,
     polygons: [
@@ -234,8 +303,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'ESP',
+    code: 'ES',
     name: 'Spain',
+    officialName: 'Kingdom of Spain',
     continent: 'Europe',
+    region: 'Southern Europe',
+    capital: 'Madrid',
     lat: 40.4,
     lon: -3.7,
     polygons: [
@@ -247,8 +320,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'ITA',
+    code: 'IT',
     name: 'Italy',
+    officialName: 'Italian Republic',
     continent: 'Europe',
+    region: 'Southern Europe',
+    capital: 'Rome',
     lat: 41.8,
     lon: 12.5,
     polygons: [
@@ -261,8 +338,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'NLD',
+    code: 'NL',
     name: 'Netherlands',
+    officialName: 'Kingdom of the Netherlands',
     continent: 'Europe',
+    region: 'Western Europe',
+    capital: 'Amsterdam',
     lat: 52.1,
     lon: 5.2,
     polygons: [
@@ -274,8 +355,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'CHE',
+    code: 'CH',
     name: 'Switzerland',
+    officialName: 'Swiss Confederation',
     continent: 'Europe',
+    region: 'Western Europe',
+    capital: 'Bern',
     lat: 46.8,
     lon: 8.2,
     polygons: [
@@ -287,8 +372,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'GRC',
+    code: 'GR',
     name: 'Greece',
+    officialName: 'Hellenic Republic',
     continent: 'Europe',
+    region: 'Southern Europe',
+    capital: 'Athens',
     lat: 39.0,
     lon: 22.0,
     polygons: [
@@ -300,8 +389,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'POL',
+    code: 'PL',
     name: 'Poland',
+    officialName: 'Republic of Poland',
     continent: 'Europe',
+    region: 'Eastern Europe',
+    capital: 'Warsaw',
     lat: 51.9,
     lon: 19.1,
     polygons: [
@@ -313,8 +406,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'UKR',
+    code: 'UA',
     name: 'Ukraine',
+    officialName: 'Ukraine',
     continent: 'Europe',
+    region: 'Eastern Europe',
+    capital: 'Kyiv',
     lat: 48.3,
     lon: 31.1,
     polygons: [
@@ -326,8 +423,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'NOR',
+    code: 'NO',
     name: 'Norway',
+    officialName: 'Kingdom of Norway',
     continent: 'Europe',
+    region: 'Northern Europe',
+    capital: 'Oslo',
     lat: 60.4,
     lon: 8.4,
     polygons: [
@@ -339,8 +440,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'SWE',
+    code: 'SE',
     name: 'Sweden',
+    officialName: 'Kingdom of Sweden',
     continent: 'Europe',
+    region: 'Northern Europe',
+    capital: 'Stockholm',
     lat: 60.1,
     lon: 18.6,
     polygons: [
@@ -350,12 +455,37 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
       ],
     ],
   },
+  {
+    id: 'RUS',
+    code: 'RU',
+    name: 'Russia',
+    officialName: 'Russian Federation',
+    continent: 'Europe',
+    region: 'Eastern Europe',
+    capital: 'Moscow',
+    lat: 61.5,
+    lon: 105.3,
+    polygons: [
+      [
+        [69.0, 31.0], [70.0, 60.0], [73.0, 80.0], [76.0, 110.0], [71.0, 150.0],
+        [66.0, 170.0], [60.0, 165.0], [52.0, 142.0], [43.0, 132.0], [48.0, 135.0],
+        [53.5, 122.0], [50.0, 90.0], [51.0, 55.0], [45.0, 48.0], [50.0, 39.0],
+        [56.0, 32.0], [61.0, 33.0], [69.0, 31.0],
+      ],
+    ],
+  },
 
+  // ==========================================
   // --- ASIA ---
+  // ==========================================
   {
     id: 'CHN',
+    code: 'CN',
     name: 'China',
+    officialName: "People's Republic of China",
     continent: 'Asia',
+    region: 'Eastern Asia',
+    capital: 'Beijing',
     lat: 35.8,
     lon: 104.1,
     polygons: [
@@ -369,8 +499,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'IND',
+    code: 'IN',
     name: 'India',
+    officialName: 'Republic of India',
     continent: 'Asia',
+    region: 'Southern Asia',
+    capital: 'New Delhi',
     lat: 20.5,
     lon: 78.9,
     polygons: [
@@ -384,12 +518,15 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'JPN',
+    code: 'JP',
     name: 'Japan',
+    officialName: 'Japan',
     continent: 'Asia',
+    region: 'Eastern Asia',
+    capital: 'Tokyo',
     lat: 36.2,
     lon: 138.2,
     polygons: [
-      // Honshu, Hokkaido, Kyushu
       [
         [45.5, 142.0], [43.0, 145.5], [41.5, 141.0], [38.0, 141.5], [35.0, 140.0],
         [33.5, 135.5], [31.0, 131.0], [33.5, 129.8], [36.0, 136.0], [40.0, 140.0],
@@ -398,24 +535,13 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     ],
   },
   {
-    id: 'RUS',
-    name: 'Russia',
-    continent: 'Asia',
-    lat: 61.5,
-    lon: 105.3,
-    polygons: [
-      [
-        [69.0, 31.0], [70.0, 60.0], [73.0, 80.0], [76.0, 110.0], [71.0, 150.0],
-        [66.0, 170.0], [60.0, 165.0], [52.0, 142.0], [43.0, 132.0], [48.0, 135.0],
-        [53.5, 122.0], [50.0, 90.0], [51.0, 55.0], [45.0, 48.0], [50.0, 39.0],
-        [56.0, 32.0], [61.0, 33.0], [69.0, 31.0],
-      ],
-    ],
-  },
-  {
     id: 'KOR',
+    code: 'KR',
     name: 'South Korea',
+    officialName: 'Republic of Korea',
     continent: 'Asia',
+    region: 'Eastern Asia',
+    capital: 'Seoul',
     lat: 35.9,
     lon: 127.7,
     polygons: [
@@ -427,8 +553,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'IDN',
+    code: 'ID',
     name: 'Indonesia',
+    officialName: 'Republic of Indonesia',
     continent: 'Asia',
+    region: 'South-Eastern Asia',
+    capital: 'Jakarta',
     lat: -0.7,
     lon: 113.9,
     polygons: [
@@ -451,8 +581,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'SAU',
+    code: 'SA',
     name: 'Saudi Arabia',
+    officialName: 'Kingdom of Saudi Arabia',
     continent: 'Asia',
+    region: 'Western Asia',
+    capital: 'Riyadh',
     lat: 23.8,
     lon: 45.0,
     polygons: [
@@ -464,8 +598,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'TUR',
+    code: 'TR',
     name: 'Turkey',
+    officialName: 'Republic of Türkiye',
     continent: 'Asia',
+    region: 'Western Asia',
+    capital: 'Ankara',
     lat: 38.9,
     lon: 35.2,
     polygons: [
@@ -477,8 +615,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'THA',
+    code: 'TH',
     name: 'Thailand',
+    officialName: 'Kingdom of Thailand',
     continent: 'Asia',
+    region: 'South-Eastern Asia',
+    capital: 'Bangkok',
     lat: 15.8,
     lon: 100.9,
     polygons: [
@@ -490,8 +632,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'VNM',
+    code: 'VN',
     name: 'Vietnam',
+    officialName: 'Socialist Republic of Vietnam',
     continent: 'Asia',
+    region: 'South-Eastern Asia',
+    capital: 'Hanoi',
     lat: 14.0,
     lon: 108.2,
     polygons: [
@@ -502,11 +648,17 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     ],
   },
 
+  // ==========================================
   // --- AFRICA ---
+  // ==========================================
   {
     id: 'EGY',
+    code: 'EG',
     name: 'Egypt',
+    officialName: 'Arab Republic of Egypt',
     continent: 'Africa',
+    region: 'Northern Africa',
+    capital: 'Cairo',
     lat: 26.8,
     lon: 30.8,
     polygons: [
@@ -518,8 +670,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'ZAF',
+    code: 'ZA',
     name: 'South Africa',
+    officialName: 'Republic of South Africa',
     continent: 'Africa',
+    region: 'Southern Africa',
+    capital: 'Pretoria',
     lat: -30.5,
     lon: 22.9,
     polygons: [
@@ -531,8 +687,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'NGA',
+    code: 'NG',
     name: 'Nigeria',
+    officialName: 'Federal Republic of Nigeria',
     continent: 'Africa',
+    region: 'Western Africa',
+    capital: 'Abuja',
     lat: 9.0,
     lon: 8.6,
     polygons: [
@@ -544,8 +704,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'KEN',
+    code: 'KE',
     name: 'Kenya',
+    officialName: 'Republic of Kenya',
     continent: 'Africa',
+    region: 'Eastern Africa',
+    capital: 'Nairobi',
     lat: -0.0,
     lon: 37.9,
     polygons: [
@@ -557,8 +721,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'MAR',
+    code: 'MA',
     name: 'Morocco',
+    officialName: 'Kingdom of Morocco',
     continent: 'Africa',
+    region: 'Northern Africa',
+    capital: 'Rabat',
     lat: 31.7,
     lon: -7.0,
     polygons: [
@@ -570,8 +738,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'DZA',
+    code: 'DZ',
     name: 'Algeria',
+    officialName: "People's Democratic Republic of Algeria",
     continent: 'Africa',
+    region: 'Northern Africa',
+    capital: 'Algiers',
     lat: 28.0,
     lon: 2.6,
     polygons: [
@@ -582,11 +754,17 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     ],
   },
 
+  // ==========================================
   // --- OCEANIA ---
+  // ==========================================
   {
     id: 'AUS',
+    code: 'AU',
     name: 'Australia',
+    officialName: 'Commonwealth of Australia',
     continent: 'Oceania',
+    region: 'Australia and New Zealand',
+    capital: 'Canberra',
     lat: -25.2,
     lon: 133.7,
     polygons: [
@@ -599,8 +777,12 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
   },
   {
     id: 'NZL',
+    code: 'NZ',
     name: 'New Zealand',
+    officialName: 'New Zealand',
     continent: 'Oceania',
+    region: 'Australia and New Zealand',
+    capital: 'Wellington',
     lat: -40.9,
     lon: 174.8,
     polygons: [
@@ -611,11 +793,17 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
     ],
   },
 
+  // ==========================================
   // --- ANTARCTICA ---
+  // ==========================================
   {
     id: 'ATA',
+    code: 'AQ',
     name: 'Antarctica',
+    officialName: 'Antarctica',
     continent: 'Antarctica',
+    region: 'Polar Region',
+    capital: 'Amundsen-Scott Station',
     lat: -82.8,
     lon: 135.0,
     polygons: [
@@ -629,77 +817,104 @@ export const WORLD_COUNTRIES: WorldCountry[] = [
 
 export const WORLD_CITIES: WorldCity[] = [
   // --- North America ---
-  { name: 'New York', country: 'United States', lat: 40.7128, lon: -74.006, tier: 1 },
-  { name: 'Los Angeles', country: 'United States', lat: 34.0522, lon: -118.2437, tier: 1 },
-  { name: 'Chicago', country: 'United States', lat: 41.8781, lon: -87.6298, tier: 2 },
-  { name: 'San Francisco', country: 'United States', lat: 37.7749, lon: -122.4194, tier: 1 },
-  { name: 'Washington D.C.', country: 'United States', lat: 38.9072, lon: -77.0369, tier: 2, isCapital: true },
-  { name: 'Miami', country: 'United States', lat: 25.7617, lon: -80.1918, tier: 2 },
-  { name: 'Seattle', country: 'United States', lat: 47.6062, lon: -122.3321, tier: 2 },
-  { name: 'Toronto', country: 'Canada', lat: 43.6532, lon: -79.3832, tier: 1 },
-  { name: 'Vancouver', country: 'Canada', lat: 49.2827, lon: -123.1207, tier: 2 },
-  { name: 'Montreal', country: 'Canada', lat: 45.5017, lon: -73.5673, tier: 2 },
-  { name: 'Mexico City', country: 'Mexico', lat: 19.4326, lon: -99.1332, tier: 1, isCapital: true },
-  { name: 'Havana', country: 'Cuba', lat: 23.1136, lon: -82.3666, tier: 2, isCapital: true },
+  { name: 'New York', country: 'United States', countryCode: 'US', continent: 'North America', lat: 40.7128, lon: -74.006, tier: 1 },
+  { name: 'Los Angeles', country: 'United States', countryCode: 'US', continent: 'North America', lat: 34.0522, lon: -118.2437, tier: 1 },
+  { name: 'Chicago', country: 'United States', countryCode: 'US', continent: 'North America', lat: 41.8781, lon: -87.6298, tier: 1 },
+  { name: 'San Francisco', country: 'United States', countryCode: 'US', continent: 'North America', lat: 37.7749, lon: -122.4194, tier: 1 },
+  { name: 'Washington D.C.', country: 'United States', countryCode: 'US', continent: 'North America', lat: 38.9072, lon: -77.0369, tier: 1, isCapital: true },
+  { name: 'Miami', country: 'United States', countryCode: 'US', continent: 'North America', lat: 25.7617, lon: -80.1918, tier: 2 },
+  { name: 'Seattle', country: 'United States', countryCode: 'US', continent: 'North America', lat: 47.6062, lon: -122.3321, tier: 2 },
+  { name: 'Denver', country: 'United States', countryCode: 'US', continent: 'North America', lat: 39.7392, lon: -104.9903, tier: 2 },
+  { name: 'Honolulu', country: 'United States', countryCode: 'US', continent: 'North America', lat: 21.3069, lon: -157.8583, tier: 2 },
+  { name: 'Toronto', country: 'Canada', countryCode: 'CA', continent: 'North America', lat: 43.6532, lon: -79.3832, tier: 1 },
+  { name: 'Vancouver', country: 'Canada', countryCode: 'CA', continent: 'North America', lat: 49.2827, lon: -123.1207, tier: 2 },
+  { name: 'Montreal', country: 'Canada', countryCode: 'CA', continent: 'North America', lat: 45.5017, lon: -73.5673, tier: 2 },
+  { name: 'Ottawa', country: 'Canada', countryCode: 'CA', continent: 'North America', lat: 45.4215, lon: -75.6972, tier: 2, isCapital: true },
+  { name: 'Mexico City', country: 'Mexico', countryCode: 'MX', continent: 'North America', lat: 19.4326, lon: -99.1332, tier: 1, isCapital: true },
+  { name: 'Guadalajara', country: 'Mexico', countryCode: 'MX', continent: 'North America', lat: 20.6597, lon: -103.3496, tier: 2 },
+  { name: 'Cancún', country: 'Mexico', countryCode: 'MX', continent: 'North America', lat: 21.1619, lon: -86.8515, tier: 2 },
+  { name: 'Havana', country: 'Cuba', countryCode: 'CU', continent: 'North America', lat: 23.1136, lon: -82.3666, tier: 2, isCapital: true },
+  { name: 'Nuuk', country: 'Greenland', countryCode: 'GL', continent: 'North America', lat: 64.1814, lon: -51.6941, tier: 2, isCapital: true },
 
   // --- South America ---
-  { name: 'São Paulo', country: 'Brazil', lat: -23.5505, lon: -46.6333, tier: 1 },
-  { name: 'Rio de Janeiro', country: 'Brazil', lat: -22.9068, lon: -43.1729, tier: 2 },
-  { name: 'Buenos Aires', country: 'Argentina', lat: -34.6037, lon: -58.3816, tier: 1, isCapital: true },
-  { name: 'Santiago', country: 'Chile', lat: -33.4489, lon: -70.6693, tier: 1, isCapital: true },
-  { name: 'Bogotá', country: 'Colombia', lat: 4.711, lon: -74.0721, tier: 1, isCapital: true },
-  { name: 'Lima', country: 'Peru', lat: -12.0464, lon: -77.0428, tier: 1, isCapital: true },
-  { name: 'Caracas', country: 'Venezuela', lat: 10.4806, lon: -66.9036, tier: 2, isCapital: true },
+  { name: 'São Paulo', country: 'Brazil', countryCode: 'BR', continent: 'South America', lat: -23.5505, lon: -46.6333, tier: 1 },
+  { name: 'Rio de Janeiro', country: 'Brazil', countryCode: 'BR', continent: 'South America', lat: -22.9068, lon: -43.1729, tier: 2 },
+  { name: 'Brasília', country: 'Brazil', countryCode: 'BR', continent: 'South America', lat: -15.7975, lon: -47.8919, tier: 2, isCapital: true },
+  { name: 'Buenos Aires', country: 'Argentina', countryCode: 'AR', continent: 'South America', lat: -34.6037, lon: -58.3816, tier: 1, isCapital: true },
+  { name: 'Santiago', country: 'Chile', countryCode: 'CL', continent: 'South America', lat: -33.4489, lon: -70.6693, tier: 1, isCapital: true },
+  { name: 'Bogotá', country: 'Colombia', countryCode: 'CO', continent: 'South America', lat: 4.711, lon: -74.0721, tier: 1, isCapital: true },
+  { name: 'Lima', country: 'Peru', countryCode: 'PE', continent: 'South America', lat: -12.0464, lon: -77.0428, tier: 1, isCapital: true },
+  { name: 'Caracas', country: 'Venezuela', countryCode: 'VE', continent: 'South America', lat: 10.4806, lon: -66.9036, tier: 2, isCapital: true },
 
   // --- Europe ---
-  { name: 'London', country: 'United Kingdom', lat: 51.5074, lon: -0.1278, tier: 1, isCapital: true },
-  { name: 'Paris', country: 'France', lat: 48.8566, lon: 2.3522, tier: 1, isCapital: true },
-  { name: 'Berlin', country: 'Germany', lat: 52.52, lon: 13.405, tier: 1, isCapital: true },
-  { name: 'Madrid', country: 'Spain', lat: 40.4168, lon: -3.7038, tier: 1, isCapital: true },
-  { name: 'Rome', country: 'Italy', lat: 41.9028, lon: 12.4964, tier: 1, isCapital: true },
-  { name: 'Amsterdam', country: 'Netherlands', lat: 52.3676, lon: 4.9041, tier: 2, isCapital: true },
-  { name: 'Zurich', country: 'Switzerland', lat: 47.3769, lon: 8.5417, tier: 2 },
-  { name: 'Athens', country: 'Greece', lat: 37.9838, lon: 23.7275, tier: 2, isCapital: true },
-  { name: 'Stockholm', country: 'Sweden', lat: 59.3293, lon: 18.0686, tier: 2, isCapital: true },
-  { name: 'Oslo', country: 'Norway', lat: 59.9139, lon: 10.7522, tier: 2, isCapital: true },
-  { name: 'Warsaw', country: 'Poland', lat: 52.2297, lon: 21.0122, tier: 2, isCapital: true },
-  { name: 'Kyiv', country: 'Ukraine', lat: 50.4501, lon: 30.5234, tier: 2, isCapital: true },
-  { name: 'Moscow', country: 'Russia', lat: 55.7558, lon: 37.6173, tier: 1, isCapital: true },
+  { name: 'London', country: 'United Kingdom', countryCode: 'GB', continent: 'Europe', lat: 51.5074, lon: -0.1278, tier: 1, isCapital: true },
+  { name: 'Edinburgh', country: 'United Kingdom', countryCode: 'GB', continent: 'Europe', lat: 55.9533, lon: -3.1883, tier: 2 },
+  { name: 'Paris', country: 'France', countryCode: 'FR', continent: 'Europe', lat: 48.8566, lon: 2.3522, tier: 1, isCapital: true },
+  { name: 'Marseille', country: 'France', countryCode: 'FR', continent: 'Europe', lat: 43.2965, lon: 5.3698, tier: 2 },
+  { name: 'Berlin', country: 'Germany', countryCode: 'DE', continent: 'Europe', lat: 52.52, lon: 13.405, tier: 1, isCapital: true },
+  { name: 'Munich', country: 'Germany', countryCode: 'DE', continent: 'Europe', lat: 48.1351, lon: 11.582, tier: 2 },
+  { name: 'Madrid', country: 'Spain', countryCode: 'ES', continent: 'Europe', lat: 40.4168, lon: -3.7038, tier: 1, isCapital: true },
+  { name: 'Barcelona', country: 'Spain', countryCode: 'ES', continent: 'Europe', lat: 41.3879, lon: 2.1699, tier: 2 },
+  { name: 'Rome', country: 'Italy', countryCode: 'IT', continent: 'Europe', lat: 41.9028, lon: 12.4964, tier: 1, isCapital: true },
+  { name: 'Milan', country: 'Italy', countryCode: 'IT', continent: 'Europe', lat: 45.4642, lon: 9.19, tier: 2 },
+  { name: 'Amsterdam', country: 'Netherlands', countryCode: 'NL', continent: 'Europe', lat: 52.3676, lon: 4.9041, tier: 2, isCapital: true },
+  { name: 'Zurich', country: 'Switzerland', countryCode: 'CH', continent: 'Europe', lat: 47.3769, lon: 8.5417, tier: 2 },
+  { name: 'Bern', country: 'Switzerland', countryCode: 'CH', continent: 'Europe', lat: 46.948, lon: 7.4474, tier: 2, isCapital: true },
+  { name: 'Athens', country: 'Greece', countryCode: 'GR', continent: 'Europe', lat: 37.9838, lon: 23.7275, tier: 2, isCapital: true },
+  { name: 'Stockholm', country: 'Sweden', countryCode: 'SE', continent: 'Europe', lat: 59.3293, lon: 18.0686, tier: 2, isCapital: true },
+  { name: 'Oslo', country: 'Norway', countryCode: 'NO', continent: 'Europe', lat: 59.9139, lon: 10.7522, tier: 2, isCapital: true },
+  { name: 'Warsaw', country: 'Poland', countryCode: 'PL', continent: 'Europe', lat: 52.2297, lon: 21.0122, tier: 2, isCapital: true },
+  { name: 'Kyiv', country: 'Ukraine', countryCode: 'UA', continent: 'Europe', lat: 50.4501, lon: 30.5234, tier: 2, isCapital: true },
+  { name: 'Moscow', country: 'Russia', countryCode: 'RU', continent: 'Europe', lat: 55.7558, lon: 37.6173, tier: 1, isCapital: true },
+  { name: 'Saint Petersburg', country: 'Russia', countryCode: 'RU', continent: 'Europe', lat: 59.9311, lon: 30.3609, tier: 2 },
 
   // --- Asia ---
-  { name: 'Tokyo', country: 'Japan', lat: 35.6762, lon: 139.6503, tier: 1, isCapital: true },
-  { name: 'Beijing', country: 'China', lat: 39.9042, lon: 116.4074, tier: 1, isCapital: true },
-  { name: 'Shanghai', country: 'China', lat: 31.2304, lon: 121.4737, tier: 1 },
-  { name: 'Hong Kong', country: 'China', lat: 22.3193, lon: 114.1694, tier: 2 },
-  { name: 'Seoul', country: 'South Korea', lat: 37.5665, lon: 126.978, tier: 1, isCapital: true },
-  { name: 'New Delhi', country: 'India', lat: 28.6139, lon: 77.209, tier: 1, isCapital: true },
-  { name: 'Mumbai', country: 'India', lat: 19.076, lon: 72.8777, tier: 1 },
-  { name: 'Bengaluru', country: 'India', lat: 12.9716, lon: 77.5946, tier: 2 },
-  { name: 'Singapore', country: 'Singapore', lat: 1.3521, lon: 103.8198, tier: 1, isCapital: true },
-  { name: 'Bangkok', country: 'Thailand', lat: 13.7563, lon: 100.5018, tier: 1, isCapital: true },
-  { name: 'Hanoi', country: 'Vietnam', lat: 21.0285, lon: 105.8542, tier: 2, isCapital: true },
-  { name: 'Jakarta', country: 'Indonesia', lat: -6.2088, lon: 106.8456, tier: 1, isCapital: true },
-  { name: 'Manila', country: 'Philippines', lat: 14.5995, lon: 120.9842, tier: 2, isCapital: true },
-  { name: 'Dubai', country: 'United Arab Emirates', lat: 25.2048, lon: 55.2708, tier: 1 },
-  { name: 'Riyadh', country: 'Saudi Arabia', lat: 24.7136, lon: 46.6753, tier: 2, isCapital: true },
-  { name: 'Istanbul', country: 'Turkey', lat: 41.0082, lon: 28.9784, tier: 1 },
+  { name: 'Tokyo', country: 'Japan', countryCode: 'JP', continent: 'Asia', lat: 35.6762, lon: 139.6503, tier: 1, isCapital: true },
+  { name: 'Osaka', country: 'Japan', countryCode: 'JP', continent: 'Asia', lat: 34.6937, lon: 135.5023, tier: 2 },
+  { name: 'Beijing', country: 'China', countryCode: 'CN', continent: 'Asia', lat: 39.9042, lon: 116.4074, tier: 1, isCapital: true },
+  { name: 'Shanghai', country: 'China', countryCode: 'CN', continent: 'Asia', lat: 31.2304, lon: 121.4737, tier: 1 },
+  { name: 'Hong Kong', country: 'China', countryCode: 'CN', continent: 'Asia', lat: 22.3193, lon: 114.1694, tier: 2 },
+  { name: 'Seoul', country: 'South Korea', countryCode: 'KR', continent: 'Asia', lat: 37.5665, lon: 126.978, tier: 1, isCapital: true },
+  { name: 'Busan', country: 'South Korea', countryCode: 'KR', continent: 'Asia', lat: 35.1796, lon: 129.0756, tier: 2 },
+  { name: 'New Delhi', country: 'India', countryCode: 'IN', continent: 'Asia', lat: 28.6139, lon: 77.209, tier: 1, isCapital: true },
+  { name: 'Mumbai', country: 'India', countryCode: 'IN', continent: 'Asia', lat: 19.076, lon: 72.8777, tier: 1 },
+  { name: 'Bengaluru', country: 'India', countryCode: 'IN', continent: 'Asia', lat: 12.9716, lon: 77.5946, tier: 2 },
+  { name: 'Singapore', country: 'Singapore', countryCode: 'SG', continent: 'Asia', lat: 1.3521, lon: 103.8198, tier: 1, isCapital: true },
+  { name: 'Bangkok', country: 'Thailand', countryCode: 'TH', continent: 'Asia', lat: 13.7563, lon: 100.5018, tier: 1, isCapital: true },
+  { name: 'Hanoi', country: 'Vietnam', countryCode: 'VN', continent: 'Asia', lat: 21.0285, lon: 105.8542, tier: 2, isCapital: true },
+  { name: 'Ho Chi Minh City', country: 'Vietnam', countryCode: 'VN', continent: 'Asia', lat: 10.8231, lon: 106.6297, tier: 2 },
+  { name: 'Jakarta', country: 'Indonesia', countryCode: 'ID', continent: 'Asia', lat: -6.2088, lon: 106.8456, tier: 1, isCapital: true },
+  { name: 'Manila', country: 'Philippines', countryCode: 'PH', continent: 'Asia', lat: 14.5995, lon: 120.9842, tier: 2, isCapital: true },
+  { name: 'Dubai', country: 'United Arab Emirates', countryCode: 'AE', continent: 'Asia', lat: 25.2048, lon: 55.2708, tier: 1 },
+  { name: 'Abu Dhabi', country: 'United Arab Emirates', countryCode: 'AE', continent: 'Asia', lat: 24.4539, lon: 54.3773, tier: 2, isCapital: true },
+  { name: 'Riyadh', country: 'Saudi Arabia', countryCode: 'SA', continent: 'Asia', lat: 24.7136, lon: 46.6753, tier: 2, isCapital: true },
+  { name: 'Istanbul', country: 'Turkey', countryCode: 'TR', continent: 'Asia', lat: 41.0082, lon: 28.9784, tier: 1 },
+  { name: 'Ankara', country: 'Turkey', countryCode: 'TR', continent: 'Asia', lat: 39.9334, lon: 32.8597, tier: 2, isCapital: true },
 
   // --- Africa ---
-  { name: 'Cairo', country: 'Egypt', lat: 30.0444, lon: 31.2357, tier: 1, isCapital: true },
-  { name: 'Johannesburg', country: 'South Africa', lat: -26.2041, lon: 28.0473, tier: 1 },
-  { name: 'Cape Town', country: 'South Africa', lat: -33.9249, lon: 18.4241, tier: 2 },
-  { name: 'Lagos', country: 'Nigeria', lat: 6.5244, lon: 3.3792, tier: 1 },
-  { name: 'Nairobi', country: 'Kenya', lat: -1.2921, lon: 36.8219, tier: 1, isCapital: true },
-  { name: 'Casablanca', country: 'Morocco', lat: 33.5731, lon: -7.5898, tier: 2 },
-  { name: 'Algiers', country: 'Algeria', lat: 36.7538, lon: 3.0588, tier: 2, isCapital: true },
+  { name: 'Cairo', country: 'Egypt', countryCode: 'EG', continent: 'Africa', lat: 30.0444, lon: 31.2357, tier: 1, isCapital: true },
+  { name: 'Johannesburg', country: 'South Africa', countryCode: 'ZA', continent: 'Africa', lat: -26.2041, lon: 28.0473, tier: 1 },
+  { name: 'Cape Town', country: 'South Africa', countryCode: 'ZA', continent: 'Africa', lat: -33.9249, lon: 18.4241, tier: 2 },
+  { name: 'Pretoria', country: 'South Africa', countryCode: 'ZA', continent: 'Africa', lat: -25.7479, lon: 28.2293, tier: 2, isCapital: true },
+  { name: 'Lagos', country: 'Nigeria', countryCode: 'NG', continent: 'Africa', lat: 6.5244, lon: 3.3792, tier: 1 },
+  { name: 'Abuja', country: 'Nigeria', countryCode: 'NG', continent: 'Africa', lat: 9.0765, lon: 7.3986, tier: 2, isCapital: true },
+  { name: 'Nairobi', country: 'Kenya', countryCode: 'KE', continent: 'Africa', lat: -1.2921, lon: 36.8219, tier: 1, isCapital: true },
+  { name: 'Casablanca', country: 'Morocco', countryCode: 'MA', continent: 'Africa', lat: 33.5731, lon: -7.5898, tier: 2 },
+  { name: 'Rabat', country: 'Morocco', countryCode: 'MA', continent: 'Africa', lat: 34.0209, lon: -6.8416, tier: 2, isCapital: true },
+  { name: 'Algiers', country: 'Algeria', countryCode: 'DZ', continent: 'Africa', lat: 36.7538, lon: 3.0588, tier: 2, isCapital: true },
 
   // --- Oceania ---
-  { name: 'Sydney', country: 'Australia', lat: -33.8688, lon: 151.2093, tier: 1 },
-  { name: 'Melbourne', country: 'Australia', lat: -37.8136, lon: 144.9631, tier: 1 },
-  { name: 'Brisbane', country: 'Australia', lat: -27.4698, lon: 153.0251, tier: 2 },
-  { name: 'Perth', country: 'Australia', lat: -31.9505, lon: 115.8605, tier: 2 },
-  { name: 'Auckland', country: 'New Zealand', lat: -36.8485, lon: 174.7633, tier: 2 },
-  { name: 'Wellington', country: 'New Zealand', lat: -41.2865, lon: 174.7762, tier: 3, isCapital: true },
+  { name: 'Sydney', country: 'Australia', countryCode: 'AU', continent: 'Oceania', lat: -33.8688, lon: 151.2093, tier: 1 },
+  { name: 'Melbourne', country: 'Australia', countryCode: 'AU', continent: 'Oceania', lat: -37.8136, lon: 144.9631, tier: 1 },
+  { name: 'Brisbane', country: 'Australia', countryCode: 'AU', continent: 'Oceania', lat: -27.4698, lon: 153.0251, tier: 2 },
+  { name: 'Perth', country: 'Australia', countryCode: 'AU', continent: 'Oceania', lat: -31.9505, lon: 115.8605, tier: 2 },
+  { name: 'Canberra', country: 'Australia', countryCode: 'AU', continent: 'Oceania', lat: -35.2809, lon: 149.13, tier: 2, isCapital: true },
+  { name: 'Auckland', country: 'New Zealand', countryCode: 'NZ', continent: 'Oceania', lat: -36.8485, lon: 174.7633, tier: 2 },
+  { name: 'Wellington', country: 'New Zealand', countryCode: 'NZ', continent: 'Oceania', lat: -41.2865, lon: 174.7762, tier: 2, isCapital: true },
+
+  // --- Antarctica ---
+  { name: 'Amundsen-Scott', country: 'Antarctica', countryCode: 'AQ', continent: 'Antarctica', lat: -89.9975, lon: 0.0, tier: 2, isCapital: true },
+  { name: 'McMurdo Station', country: 'Antarctica', countryCode: 'AQ', continent: 'Antarctica', lat: -77.8419, lon: 166.6863, tier: 2 },
 ];
 
 /**
@@ -760,3 +975,205 @@ export function findCountryForCoord(
 
   return minDistance < 18 ? closest : null;
 }
+
+/**
+ * Find country by ISO alpha-3 id, alpha-2 code, or common name.
+ */
+export function findCountryByNameOrCode(query: string): WorldCountry | null {
+  const q = query.trim().toLowerCase();
+  for (const country of WORLD_COUNTRIES) {
+    if (
+      country.id.toLowerCase() === q ||
+      country.code.toLowerCase() === q ||
+      country.name.toLowerCase() === q ||
+      country.officialName.toLowerCase() === q
+    ) {
+      return country;
+    }
+  }
+  return null;
+}
+
+/**
+ * Retrieve all registered cities for a country name or code.
+ */
+export function getCountryCities(countryNameOrCode: string): WorldCity[] {
+  const q = countryNameOrCode.trim().toLowerCase();
+  return WORLD_CITIES.filter(
+    (c) =>
+      c.country.toLowerCase() === q ||
+      c.countryCode.toLowerCase() === q
+  );
+}
+
+/**
+ * Formats geographical location hierarchy properly:
+ * If city name and country name are provided: "City, Country"
+ * If admin1 (state/province) is also present: "City, State, Country"
+ * Avoids duplicate naming such as "United States, United States".
+ */
+export function formatLocationTitle(
+  name: string,
+  country?: string | null,
+  admin1?: string | null
+): { primaryTitle: string; secondaryHierarchy: string } {
+  const cleanName = name.trim();
+  const cleanCountry = country?.trim() || '';
+  const cleanAdmin = admin1?.trim() || '';
+
+  // If name is already identical to country (or contains it redundantly)
+  if (cleanCountry && cleanName.toLowerCase() === cleanCountry.toLowerCase()) {
+    const matchedCountry = findCountryByNameOrCode(cleanCountry);
+    const primaryTitle = matchedCountry?.name || cleanName;
+    const hierarchyParts = [
+      matchedCountry ? `${matchedCountry.continent}` : '',
+      matchedCountry ? `Capital: ${matchedCountry.capital}` : '',
+    ].filter(Boolean);
+
+    return {
+      primaryTitle,
+      secondaryHierarchy: hierarchyParts.join(' · ') || cleanCountry,
+    };
+  }
+
+  const primaryTitle = cleanName;
+  const secondaryParts = [cleanAdmin, cleanCountry].filter(
+    (part) => part && part.toLowerCase() !== cleanName.toLowerCase()
+  );
+
+  return {
+    primaryTitle,
+    secondaryHierarchy: secondaryParts.join(', '),
+  };
+}
+
+export interface WorldContinent {
+  name: string;
+  polygon: Array<[number, number]>;
+}
+
+export const WORLD_CONTINENTS: WorldContinent[] = [
+  // North America
+  {
+    name: 'North America',
+    polygon: [
+      [71, -156], [70, -130], [68, -100], [60, -75], [52, -56],
+      [47, -53], [44, -66], [41, -70], [30, -81], [25, -80],
+      [22, -97], [16, -93], [9, -79], [9, -83], [15, -88],
+      [20, -105], [30, -115], [34, -120], [38, -123], [48, -125],
+      [58, -136], [60, -145], [60, -165], [66, -168], [71, -156]
+    ],
+  },
+  // South America
+  {
+    name: 'South America',
+    polygon: [
+      [12, -72], [10, -62], [6, -52], [-2, -44], [-8, -35],
+      [-23, -42], [-35, -54], [-46, -65], [-55, -67], [-53, -71],
+      [-42, -74], [-30, -71], [-18, -71], [-5, -81], [5, -77],
+      [9, -77], [12, -72]
+    ],
+  },
+  // Europe
+  {
+    name: 'Europe',
+    polygon: [
+      [71, 28], [68, 50], [60, 55], [52, 38], [45, 36],
+      [40, 27], [36, 22], [36, -5], [43, -9], [48, -5],
+      [54, 8], [58, 6], [62, 5], [70, 20], [71, 28]
+    ],
+  },
+  // Scandinavia
+  {
+    name: 'Scandinavia',
+    polygon: [
+      [71, 26], [60, 30], [56, 12], [58, 6], [64, 11],
+      [70, 20], [71, 26]
+    ],
+  },
+  // Africa
+  {
+    name: 'Africa',
+    polygon: [
+      [37, 10], [32, 32], [28, 34], [12, 51], [2, 45],
+      [-12, 40], [-26, 33], [-34, 26], [-34, 18], [-17, 12],
+      [-5, 9], [5, 2], [5, 8], [4, 9], [5, -3],
+      [15, -17], [21, -17], [32, -8], [36, -1], [37, 10]
+    ],
+  },
+  // Asia
+  {
+    name: 'Asia',
+    polygon: [
+      [77, 104], [70, 160], [65, 179], [60, 165], [52, 142],
+      [43, 132], [38, 120], [31, 122], [22, 114], [11, 108],
+      [1, 104], [8, 98], [22, 90], [21, 70], [25, 62],
+      [13, 48], [13, 44], [28, 34], [37, 36], [42, 50],
+      [55, 60], [60, 70], [72, 75], [77, 104]
+    ],
+  },
+  // Indian Subcontinent
+  {
+    name: 'Indian Subcontinent',
+    polygon: [
+      [30, 70], [31, 78], [27, 88], [22, 89], [16, 82],
+      [8, 77], [13, 74], [21, 69], [25, 67], [30, 70]
+    ],
+  },
+  // Australia
+  {
+    name: 'Australia',
+    polygon: [
+      [-12, 131], [-12, 136], [-17, 139], [-11, 142], [-22, 150],
+      [-32, 152], [-38, 146], [-38, 140], [-35, 115], [-22, 114],
+      [-15, 124], [-12, 131]
+    ],
+  },
+  // Greenland
+  {
+    name: 'Greenland',
+    polygon: [
+      [83, -30], [76, -18], [65, -40], [60, -45], [70, -54],
+      [78, -68], [82, -50], [83, -30]
+    ],
+  },
+  // United Kingdom & Ireland
+  {
+    name: 'United Kingdom',
+    polygon: [
+      [58, -3], [58, -5], [55, -6], [50, -5], [51, 1],
+      [53, 0], [55, -1], [58, -3]
+    ],
+  },
+  // Japan
+  {
+    name: 'Japan',
+    polygon: [
+      [45, 142], [43, 145], [35, 140], [33, 130], [35, 133],
+      [40, 140], [45, 142]
+    ],
+  },
+  // New Zealand
+  {
+    name: 'New Zealand',
+    polygon: [
+      [-34.5, 172.8], [-37.5, 178.5], [-41.5, 175.5], [-46.5, 169.0], [-45.5, 166.5],
+      [-40.5, 172.5], [-38.0, 174.5], [-34.5, 172.8]
+    ],
+  },
+  // Madagascar
+  {
+    name: 'Madagascar',
+    polygon: [
+      [-12, 49], [-16, 50], [-25, 47], [-25, 44], [-17, 44], [-12, 49]
+    ],
+  },
+  // Antarctica
+  {
+    name: 'Antarctica',
+    polygon: [
+      [-65, -64], [-68, -40], [-72, 0], [-66, 60], [-66, 100],
+      [-66, 140], [-71, 170], [-74, -170], [-72, -120], [-65, -64]
+    ],
+  },
+];

@@ -15,6 +15,7 @@ import {
 } from '../types/atmosphere';
 import { formatTemp } from './CurrentWeatherHero';
 import { AtmosphereGlobe } from './AtmosphereGlobe';
+import { findCountryForCoord } from '../data/worldGeoData';
 import { Globe, Map as MapIcon } from 'lucide-react';
 
 interface InteractiveEnvMapProps {
@@ -65,10 +66,16 @@ export const InteractiveEnvMap: React.FC<InteractiveEnvMapProps> = ({
     if (!latLng) return;
     setSelectedGridNode(null);
     setSelectedIotNode(null);
+    const lat = Number(latLng.lat.toFixed(4));
+    const lon = Number(latLng.lng.toFixed(4));
+    const matchedCountry = findCountryForCoord(lat, lon);
+
     onProbeCoordinates({
-      name: `Spatial Probe (${latLng.lat.toFixed(3)}°, ${latLng.lng.toFixed(3)}°)`,
-      latitude: Number(latLng.lat.toFixed(4)),
-      longitude: Number(latLng.lng.toFixed(4)),
+      name: matchedCountry ? matchedCountry.name : 'Spatial Probe',
+      country: matchedCountry?.name,
+      admin1: matchedCountry?.capital,
+      latitude: lat,
+      longitude: lon,
     });
   };
 
